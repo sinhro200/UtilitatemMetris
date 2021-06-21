@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yandex.metrica.YandexMetrica
 import kotlinx.coroutines.launch
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.FragmentSavedMetersBinding
@@ -83,6 +84,9 @@ class SavedMetersFragment : BaseTitledFragment(R.string.fragment_title_saved_met
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        YandexMetrica.reportEvent(
+            "Открытие экрана. Сохранённые счётчики"
+        )
         binding.sumForPay = 0.0
         binding.payChosenMetersButton.viewmodel =
             GeneralButtonViewModel(getString(R.string.pay_for_chosen)) {

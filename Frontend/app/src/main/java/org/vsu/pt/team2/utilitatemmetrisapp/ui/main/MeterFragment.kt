@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.orhanobut.logger.Logger
+import com.yandex.metrica.YandexMetrica
 import kotlinx.coroutines.launch
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.FragmentDialogAcceptChangesBinding
@@ -49,6 +50,9 @@ class MeterFragment : DisabledDrawerFragment(R.string.fragment_title_meter) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initFields(binding)
+        YandexMetrica.reportEvent(
+            "Открытие экрана счётчика"
+        )
         setHasOptionsMenu(true)
     }
 
@@ -246,6 +250,9 @@ class MeterFragment : DisabledDrawerFragment(R.string.fragment_title_meter) {
                 genericErrorToast(updateResult)
             }
             is ApiResult.Success -> {
+                YandexMetrica.reportEvent(
+                    "Изменение показаний"
+                )
                 meter?.curMonthData = newValue
                 binding.fragmentMeterNewdataExtendededittext.setText(newValue.toString())
                 onSuccess.invoke()

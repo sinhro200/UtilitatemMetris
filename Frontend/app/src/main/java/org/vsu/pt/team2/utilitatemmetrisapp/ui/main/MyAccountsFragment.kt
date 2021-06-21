@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yandex.metrica.YandexMetrica
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.FragmentMyAccountsBinding
 import org.vsu.pt.team2.utilitatemmetrisapp.managers.AccountManager
@@ -43,6 +44,9 @@ class MyAccountsFragment : BaseTitledFragment(R.string.fragment_title_my_account
         binding = FragmentMyAccountsBinding.inflate(inflater, container, false)
         initFields(binding)
         updateAccounts()
+        YandexMetrica.reportEvent(
+            "Открытие экрана. Счета пользователя"
+        )
         return binding.root
     }
 

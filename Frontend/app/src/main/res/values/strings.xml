@@ -96,6 +96,7 @@
     <string name="ok">Выход</string>
     <string name="available_only_on_full_account">Доступно только после полной регистрации</string>
     <string name="user_with_same_email_already_registered">Пользователь с такой почтой уже зарегистрирован</string>
+    <string name="demo_account">Анонимный аккаунт</string>
 
 
 </resources>

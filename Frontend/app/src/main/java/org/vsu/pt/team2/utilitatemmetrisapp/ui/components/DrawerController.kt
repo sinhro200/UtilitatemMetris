@@ -15,6 +15,7 @@ import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.addStickyDrawerItems
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
+import com.yandex.metrica.YandexMetrica
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.AppbarContentBinding
 import org.vsu.pt.team2.utilitatemmetrisapp.managers.IntentExtrasManager
@@ -45,6 +46,9 @@ class DrawerController(
 //        mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = false
         mDrawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         appbarContentBinding.toolbarIconContainer.setOnClickListener {
+            YandexMetrica.reportEvent(
+                "Шаг назад"
+            )
             activity.supportFragmentManager.popBackStack()
         }
     }
@@ -55,6 +59,9 @@ class DrawerController(
 //        mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = false
         mDrawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         appbarContentBinding.toolbarIconContainer.setOnClickListener {
+            YandexMetrica.reportEvent(
+                "Открытие бокового меню"
+            )
             materialDrawerSliderView.drawerLayout?.open()
         }
     }
@@ -65,12 +72,18 @@ class DrawerController(
                 simpleMenuItem("Найти счётчик"),
                 { view, pos, drItem ->
                     activity.replaceFragment(AddMeterFragment())
+                    YandexMetrica.reportEvent(
+                        "Переход на экран из бокового меню. Найти счётчик"
+                    )
                 }
             )
             addItem(
                 simpleMenuItem("Сохранённые счётчики"),
                 { view, pos, drItem ->
                     activity.replaceFragment(SavedMetersFragment())
+                    YandexMetrica.reportEvent(
+                        "Переход на экран из бокового меню. Сохранённые счётчики"
+                    )
                 }
             )
             addItem(
@@ -84,6 +97,9 @@ class DrawerController(
                         false,
                         IntentExtrasManager.continueRegister::putInto
                     )
+                    YandexMetrica.reportEvent(
+                        "Переход на экран из бокового меню. Продолжение регистрации"
+                    )
                 }
             )
         }
@@ -95,12 +111,18 @@ class DrawerController(
                 simpleMenuItem("Найти счётчик"),
                 { view, pos, drItem ->
                     activity.replaceFragment(AddMeterFragment())
+                    YandexMetrica.reportEvent(
+                        "Переход на экран из бокового меню. Найти счётчик"
+                    )
                 }
             )
             addItem(
                 simpleMenuItem("Сохранённые счётчики"),
                 { view, pos, drItem ->
                     activity.replaceFragment(SavedMetersFragment())
+                    YandexMetrica.reportEvent(
+                        "Переход на экран из бокового меню. Сохранённые счётчики"
+                    )
                 }
             )
             addItem(
@@ -110,6 +132,9 @@ class DrawerController(
                 simpleMenuItem("Мои счета"),
                 { view, pos, drItem ->
                     activity.replaceFragment(MyAccountsFragment())
+                    YandexMetrica.reportEvent(
+                        "Переход на экран из бокового меню. Мои счета"
+                    )
                 }
             )
             addItem(
@@ -119,6 +144,9 @@ class DrawerController(
                 simpleMenuItem("История выплат"),
                 { view, pos, drItem ->
                     activity.replaceFragment(HistoryFragment.createWithFilter(PaymentsFilter()))
+                    YandexMetrica.reportEvent(
+                        "Переход на экран из бокового меню. История выплат"
+                    )
                 }
             )
         }
@@ -136,8 +164,12 @@ class DrawerController(
         materialDrawerSliderView.onDrawerItemClickListener = { view: View?,
                                                                drawerItem: IDrawerItem<*>,
                                                                position: Int ->
-            if (drawerItem.identifier == 1010L)
+            if (drawerItem.identifier == 1010L) {
                 activity.replaceFragment(SettingsFragment())
+                YandexMetrica.reportEvent(
+                    "Переход на экран из бокового меню. Настройки"
+                )
+            }
             else
                 drawerItemsEasyCreator.clickListener().invoke(view, drawerItem, position)
             false
@@ -147,7 +179,7 @@ class DrawerController(
     private fun createHeader() {
         val profileItem = ProfileDrawerItem().apply {
             nameText = sessionManager.user.email
-            descriptionText = if (sessionManager.isDemo) "Анонимный аккаунт" else ""
+            descriptionText = if (sessionManager.isDemo) activity.getString(R.string.demo_account) else ""
         }
         AccountHeaderView(activity).apply {
             attachToSliderView(materialDrawerSliderView)

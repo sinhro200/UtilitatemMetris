@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import com.orhanobut.logger.Logger
+import com.yandex.metrica.YandexMetrica
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.FragmentSettingsBinding
 import org.vsu.pt.team2.utilitatemmetrisapp.managers.SessionManager
@@ -39,6 +40,9 @@ class SettingsFragment : DisabledDrawerFragment(R.string.fragment_title_settings
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        YandexMetrica.reportEvent(
+            "Открытие экрана. Настройки"
+        )
         initFields()
     }
 

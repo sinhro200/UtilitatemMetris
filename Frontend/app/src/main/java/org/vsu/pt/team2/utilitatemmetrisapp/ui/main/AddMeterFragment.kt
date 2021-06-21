@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import com.yandex.metrica.YandexMetrica
 import kotlinx.coroutines.launch
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.FragmentAddMeterBinding
@@ -38,6 +39,9 @@ class AddMeterFragment : BaseTitledFragment(R.string.fragment_title_add_meter) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initFields(binding)
+        YandexMetrica.reportEvent(
+            "Открытие экрана. Поиск счётчика"
+        )
     }
 
     private fun initFields(binding: FragmentAddMeterBinding) {
@@ -89,6 +93,9 @@ class AddMeterFragment : BaseTitledFragment(R.string.fragment_title_add_meter) {
             when (val res = meterManager.getMeterByIdentifier(correctMeterIdentifier)) {
                 is ApiResult.Success -> {
                     onMeterLoaded(res.value.first)
+                    YandexMetrica.reportEvent(
+                        "Поиск счётчика. Счётчик найден"
+                    )
                 }
                 is ApiResult.GenericError -> {
                     when (res.code) {

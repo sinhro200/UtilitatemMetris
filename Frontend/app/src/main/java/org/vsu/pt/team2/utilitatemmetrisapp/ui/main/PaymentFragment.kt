@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orhanobut.logger.Logger
+import com.yandex.metrica.YandexMetrica
 import kotlinx.coroutines.*
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.FragmentDialogPayBinding
@@ -62,6 +63,9 @@ class PaymentFragment : DisabledDrawerFragment(R.string.fragment_title_payment) 
         super.onViewCreated(view, savedInstanceState)
         initFields(binding)
         loadMeters()
+        YandexMetrica.reportEvent(
+            "Открытие экрана. Оплата счётчика(ов)"
+        )
     }
 
     private fun loadMeters() {
@@ -137,6 +141,9 @@ class PaymentFragment : DisabledDrawerFragment(R.string.fragment_title_payment) 
     private suspend fun requestOnDoPaymentClick() {
         when (val paymentResult = paymentManager.doPayment(metersIdentifiers, sum)) {
             is ApiResult.Success -> {
+                YandexMetrica.reportEvent(
+                    "Оплачены выбранные счётчики"
+                )
                 meters?.forEach {
                     it.balance = 0.0
                 }
@@ -217,6 +224,9 @@ class PaymentFragment : DisabledDrawerFragment(R.string.fragment_title_payment) 
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
+            YandexMetrica.reportEvent(
+                "Открытие экрана. Диалог оплаты"
+            )
             binding.fragmentDialogPaySumTv.text = sumForPay.toString()
             binding.fragmentDialogPayBtnPay.setOnClickListener {
                 doPaymentClick.invoke()

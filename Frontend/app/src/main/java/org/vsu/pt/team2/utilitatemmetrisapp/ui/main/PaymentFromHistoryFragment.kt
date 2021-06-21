@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yandex.metrica.YandexMetrica
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.api.model.Payment
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.FragmentPaymentFromHistoryBinding
@@ -46,6 +47,9 @@ class PaymentFromHistoryFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFields()
+        YandexMetrica.reportEvent(
+            "Открытие экрана. Просмотр квитанции"
+        )
     }
 
     private fun onPaymentReady(payment: PaymentData) {

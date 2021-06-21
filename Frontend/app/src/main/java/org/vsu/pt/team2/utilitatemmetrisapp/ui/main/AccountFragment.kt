@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yandex.metrica.YandexMetrica
 import kotlinx.coroutines.launch
 import org.vsu.pt.team2.utilitatemmetrisapp.R
 import org.vsu.pt.team2.utilitatemmetrisapp.databinding.FragmentAccountBinding
@@ -72,6 +73,9 @@ class AccountFragment : DisabledDrawerFragment() {
                     PaymentFragment.createWithMetersIdentifier(
                         adapter.getChecked().map { it.identifier }
                     )
+                )
+                YandexMetrica.reportEvent(
+                    "Переход на экран оплаты выбранных счётчиков"
                 )
             }
         binding.metersOnAccountRecyclerView.layoutManager = LinearLayoutManager(
