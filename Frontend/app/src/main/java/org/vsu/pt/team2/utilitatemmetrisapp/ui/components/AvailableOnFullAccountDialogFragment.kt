@@ -10,7 +10,7 @@ class AvailableOnFullAccountDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.available_only_on_full_account))
-            .setPositiveButton(getString(R.string.ok)) { _, _ ->
+            .setPositiveButton(getString(R.string.exit)) { _, _ ->
                 this.dismiss()
             }
             .create()

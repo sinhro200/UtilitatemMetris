@@ -100,7 +100,7 @@ class SettingsFragment : DisabledDrawerFragment(R.string.fragment_title_settings
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
             AlertDialog.Builder(requireContext())
                 .setMessage(getString(R.string.are_you_really_want_to_quit))
-                .setPositiveButton(getString(R.string.ok)) { _, _ ->
+                .setPositiveButton(getString(R.string.exit)) { _, _ ->
                     quitAction.invoke()
                 }
                 .setNegativeButton(getString(R.string.cancel)) { _, _ ->

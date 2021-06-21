@@ -52,7 +52,7 @@ class SavedMetersFragment : BaseTitledFragment(R.string.fragment_title_saved_met
 
     fun statusLoadedEmptyList() {
         binding.fragmentSavedMetersStatusTv.visibility = View.VISIBLE
-        binding.fragmentSavedMetersStatusTv.text = "У вас нету ни одного счётчика"
+        binding.fragmentSavedMetersStatusTv.text = getString(R.string.you_dont_have_meters)
         binding.fragmentSavedMetersSwipeRefreshLayout.isRefreshing = false
     }
 
